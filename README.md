@@ -1,4 +1,4 @@
-# IBM Recommendation Website
+# IBM Talent Recommendation Website
 For 科技部大專生計畫
 ## 1. Use Kaggle dataset to train model
 
