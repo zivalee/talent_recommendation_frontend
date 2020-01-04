@@ -1,39 +1,51 @@
 <template>
   <div id="app">
-    <div class="row">
-      <div class="column">
-        <h2>Department</h2>
-        <multiselect v-model="depSelected" :options="depOptions"></multiselect>
+    <b-navbar variant="info" type="dark">
+      <b-navbar-brand>
+        <h1 class="ml-5">We Recommend!</h1>
+      </b-navbar-brand>
+    </b-navbar>
+    <b-container class="mt-3">
+      <!-- filter area-->
+      <b-row>
+        <b-col>
+          <h3>Department</h3>
+          <b-form-select v-model="depSelected" :options="depOptions"></b-form-select>
+        </b-col>
+        <b-col>
+          <h3>Job Role</h3>
+          <b-form-select v-model="roleSelected" :options="roleOptions"></b-form-select>
+        </b-col>
+        <b-col>
+          <h3>Job Level</h3>
+          <b-form-select v-model="levelSelected" :options="levelOptions"></b-form-select>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-button @click="getResult" variant="warning" class="mt-3 ml-3">Submit</b-button>
+      </b-row>
+      <!-- result area-->
+      <b-spinner v-if="spinner" :key="spinner" variant="primary" label="Spinning" class="mt-3 ml-3"></b-spinner>
+
+      <div v-if="result" :key="result" class="mt-2">
+        <li v-for="i in recommend" :key="i.index">
+          <a target="_blank" :href="i">{{i}}</a>
+        </li>
       </div>
-      <div class="column">
-        <h2>Job Role</h2>
-        <multiselect v-model="roleSelected" :options="roleOptions"></multiselect>
+      <div v-if="warning" :key="warning" class="mt-2">
+        <p>
+          <b-badge variant="danger">Warning</b-badge> Please Select Every Parameter
+        </p>
       </div>
-      <div class="column">
-        <h2>Job Level</h2>
-        <multiselect v-model="levelSelected" :options="levelOptions"></multiselect>
-      </div>
-    </div>
-    <div class="column">
-      <button @click="getResult">Submit</button>
-    </div>
-    <div v-if="result" :key="result">
-      <li v-for="i in recommend" :key=i.index>
-        <a target="_blank" :href="i" >{{i}}</a>
-      </li>
-    </div>
+    </b-container>
   </div>
 </template>
 
 <script>
-import multiselect from "vue-multiselect";
 import axios from "axios";
 
 export default {
   name: "app",
-  components: {
-    multiselect
-  },
   data() {
     return {
       depSelected: null,
@@ -53,12 +65,17 @@ export default {
       ],
       levelOptions: [1, 2, 3, 4, 5],
       result: 0,
+      spinner: false,
+      warning: false,
       recommend: []
     };
   },
   methods: {
     getResult() {
       /* eslint-disable no-console */
+      this.warning = false; // reset warning when submit again
+      this.spinner = true; // show spinner
+      this.recommend = []; // remove result when submit again
       let param =
         "department=" +
         this.depSelected +
@@ -66,17 +83,23 @@ export default {
         this.roleSelected +
         "&job_level=" +
         this.levelSelected;
-      axios
-        .get("https://ibm-analysis.herokuapp.com/predict?" + param)
-        .then(response =>{
-          // console.log(response.data);
-          this.recommend = response.data;
-          console.log(this.recommend);
-        });
-      this.result += 1;
+      if (this.depSelected && this.roleSelected && this.levelSelected) {
+        axios
+          .get("https://ibm-analysis.herokuapp.com/predict?" + param)
+          .then(response => {
+            this.recommend = response.data;
+            this.spinner = false; // when get result, hide spinner
+            console.log(this.recommend);
+          });
+        this.result += 1;
+      } else {
+        this.warning = true; // if not selected, show warning
+        this.spinner = false; // hide spinner
+      }
     }
   }
 };
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style>
+</style>
