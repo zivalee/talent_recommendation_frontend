@@ -5,7 +5,10 @@
         <h1 class="ml-5">We Recommend!</h1>
       </b-navbar-brand>
     </b-navbar>
-    <b-container class="mt-3">
+    <b-container class="mt-5">
+      <h3>How to use:</h3>
+      <p>Please tell us what talent you are looking for by select the following parameters. 
+        We will search in our linkenin profile database, make analysis based on our model and give our recommendation.</p>
       <!-- filter area-->
       <b-row>
         <b-col>
@@ -38,6 +41,12 @@
         </p>
       </div>
     </b-container>
+
+      <div class="footer">
+        <p class="mt-3">The site use ibm dataset on kaggle to build model and scrape linkedin profiles for recommendation. For more info, visit 
+          <a href="https://github.com/zivalee/ibm_frontend" target="_blank" style="color:orange"> ibm_frontend</a>
+        </p>
+      </div>
   </div>
 </template>
 
@@ -102,4 +111,5 @@ export default {
 </script>
 
 <style>
+@import "app.css"
 </style>
