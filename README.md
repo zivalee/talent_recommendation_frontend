@@ -1,24 +1,9 @@
-# ibm
+# IBM Recommendation Website
+For 科技部大專生計畫
+## 1. Use Kaggle dataset to train model
 
-## Project setup
-```
-npm install
-```
+[Dataset] used(https://www.kaggle.com/pavansubhasht/ibm-hr-analytics-attrition-dataset).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### 2. Parse Linkedin profiles
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 3. Build Website to recommend talents according to different department, job level, job role
