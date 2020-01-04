@@ -31,6 +31,7 @@
       <b-spinner v-if="spinner" :key="spinner" variant="primary" label="Spinning" class="mt-3 ml-3"></b-spinner>
 
       <div v-if="result" :key="result" class="mt-2">
+        <p :key="count">Recommendation : {{count}} out of {{total}}</p>
         <li v-for="i in recommend" :key="i.index">
           <a target="_blank" :href="i">{{i}}</a>
         </li>
@@ -76,7 +77,9 @@ export default {
       result: 0,
       spinner: false,
       warning: false,
-      recommend: []
+      recommend: [],
+      count: 0,
+      total: 0
     };
   },
   methods: {
@@ -96,9 +99,11 @@ export default {
         axios
           .get("https://ibm-analysis.herokuapp.com/predict?" + param)
           .then(response => {
-            this.recommend = response.data;
+            this.recommend = response.data.recommendation;
+            this.count = this.recommend.length;
+            this.total = response.data.total;
             this.spinner = false; // when get result, hide spinner
-            console.log(this.recommend);
+            // console.log(this.count);
           });
         this.result += 1;
       } else {
