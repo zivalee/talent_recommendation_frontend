@@ -1,9 +1,15 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  /*make footer sticky to bottom when scrolling*/
+  min-height: 100vh;
+}
+
 .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #33b5e5;
-    color: white;
-    text-align: center;
-  }
+  bottom: 0;
+  /*make footer sticky to bottom when scrolling*/
+  margin-top: auto;
+  background-color: #33b5e5;
+  color: white;
+  text-align: center;
+}
