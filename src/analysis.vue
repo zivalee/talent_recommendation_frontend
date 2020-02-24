@@ -36,11 +36,11 @@
         </b-col>
         <b-col>
           <h4>Department</h4>
-          <b-form-select v-model="depSelected" :options="depOptions"></b-form-select>
+          <b-form-select v-model="depSelected" :options="depOptions" @change="changeRole"></b-form-select>
         </b-col>
         <b-col>
           <h4>Job Role</h4>
-          <b-form-select v-model="roleSelected" :options="roleOptions"></b-form-select>
+          <b-form-select v-model="roleSelected" :options="roleOptions" @change="changeLevel"></b-form-select>
         </b-col>
         <b-col>
           <h4>Job Level</h4>
@@ -93,18 +93,8 @@ export default {
       educationOptions: [1, 2, 3, 4],
       fieldOptions: ['Life Sciences', 'Medical', 'Marketing', 'Technical Degree', 'Human Resources', 'Other'],
       depOptions: ["Research & Development", "Sales", "Other"],
-      roleOptions: [
-        "Healthcare Representative",
-        "Human Resources",
-        "Laboratory Technician",
-        "Manager",
-        "Manufacturing Director",
-        "Research Director",
-        "Research Scientist",
-        "Sales Executive",
-        "Sales Representative"
-      ],
-      levelOptions: [1, 2, 3, 4, 5],
+      roleOptions: [],
+      levelOptions: [],
       result: 0,
       rating: 0,
       spinner: false,
@@ -149,7 +139,69 @@ export default {
         this.spinner = false; // hide spinner
       }
     },
-    
+    changeRole() {
+      switch (this.depSelected) {
+        case "Research & Development":
+          this.roleOptions = [
+            "Healthcare Representative",
+            "Laboratory Technician",
+            "Manager",
+            "Manufacturing Director",
+            "Research Director",
+            "Research Scientist"
+          ];
+          break;
+        case "Sales":
+          this.roleOptions = [
+            "Sales Representative",
+            "Sales Executive",
+            "Manager",
+          ];
+          break;
+        case "Human Resource":
+          this.roleOptions = [
+            "Human Resources",
+            "Manager",
+          ];
+          break;
+      }
+    },
+    changeLevel(){
+      switch(this.roleSelected){
+        case "Healthcare Representative":
+            this.levelOptions = [2, 3, 4];
+          break;
+        case "Laboratory Technician":
+            this.levelOptions = [1, 2, 3];
+          break;
+        case "Manufacturing Director":
+            this.levelOptions = [2, 3, 4];
+          break;
+        case "Research Director":
+            this.levelOptions = [3, 4, 5];
+          break;
+        case "Research Scientist":
+            this.levelOptions = [1, 2, 3];
+          break;
+        case "Sales Representative":
+            this.levelOptions = [1, 2];
+          break;
+        case "Sales Executive":
+            this.levelOptions = [2, 3, 4];
+          break;
+        case "Human Resources":
+            this.levelOptions = [1, 2, 3];
+          break;
+        case "Manager":
+          if (this.depSelected === "Human Resource"){
+            this.levelOptions = [4, 5];
+          }
+          else{
+            this.levelOptions = [3, 4, 5];
+          }
+          break;
+      }
+    }
   }
 };
 </script>
