@@ -56,11 +56,11 @@
       <!-- result area-->
       <b-spinner v-if="spinner" :key="spinner" variant="primary" label="Spinning" class="mt-3 ml-3"></b-spinner>
       <div v-if="result" :key="rating" class="mt-2">
-        <p>{{rating}}</p>
-        <div v-if="rating===0">Predicted Attrition = 1, PerformanceRating = 3</div>
-        <div v-else-if="rating===1">Predicted Attrition = 1, PerformanceRating = 4</div>
-        <div v-else-if="rating===2">Predicted Attrition = 0, PerformanceRating = 3</div>
-        <div v-else-if="rating===3">Predicted Attrition = 0, PerformanceRating = 4</div>
+        <p>類別：{{rating}}</p>
+        <div v-if="rating===0">Predicted Attrition = 1, PerformanceRating = 3<br>高離職率，低績效</div>
+        <div v-else-if="rating===1">Predicted Attrition = 1, PerformanceRating = 4<br>高離職率，高績效</div>
+        <div v-else-if="rating===2">Predicted Attrition = 0, PerformanceRating = 3<br>低離職率，低績效</div>
+        <div v-else-if="rating===3">Predicted Attrition = 0, PerformanceRating = 4<br>低離職率，高績效</div>
       </div>
 
       <div v-if="warning" :key="warning" class="mt-2">
